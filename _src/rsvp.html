@@ -1,0 +1,126 @@
+  <!-- RSVP · Panel de invitados (X pases) -->
+  <section id="rsvp">
+    <p class="eyebrow rv">Confirma tu asistencia</p>
+    <h2 class="script-title rv">¿Me acompañas?</h2>
+    <span class="rsvp-deadline rv">Confirma antes del domingo 1 de noviembre de 2026</span>
+    <div class="rsvp-card rv">
+      <p id="rsvp-pases-note" class="rsvp-hello"></p>
+      <div class="rsvp-pases-display" id="rsvp-pases-display" style="display:none">
+        <div class="rsvp-pases-label">Pases</div>
+        <div class="rsvp-pases-num" id="rsvp-pases-num">1</div>
+      </div>
+      <div id="rsvp-bandeja">
+        <div class="rsvp-toggle">
+          <button class="rsvp-toggle-btn" id="btnYes" type="button">Asistiré</button>
+          <button class="rsvp-toggle-btn" id="btnNo" type="button">No podré asistir</button>
+        </div>
+        <div class="rsvp-fields" id="rsvp-fields" style="display:none"></div>
+        <button class="rsvp-btn" id="rsvp-confirm-btn" type="button"><span id="rsvp-btn-text">Confirmar asistencia</span></button>
+      </div>
+      <div class="rsvp-gracias" id="rsvp-gracias" style="display:none">
+        <svg class="rsvp-gracias-icon" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="8.5 12.5 11 15 16 9.5"/></svg>
+        <p class="rsvp-gracias-title" id="rsvp-gracias-title"></p>
+        <p class="rsvp-gracias-sub" id="rsvp-gracias-sub"></p>
+        <button class="rsvp-editar-btn" id="rsvp-editar-btn" type="button">Modificar mi respuesta</button>
+      </div>
+      <p id="rsvp-feedback"></p>
+    </div>
+  </section>
+  <script>
+  (function(){
+    var API='https://panel-invitados.vercel.app/api/confirmar';
+    var URL_BODA='https://xv-ximena-ortega-rodriguez.vercel.app';
+    var DEADLINE=new Date('2026-11-01T23:59:59-06:00');
+    var q=new URLSearchParams(location.search);
+    var para=(q.get('para')||'').trim();
+    var pases=Math.max(1,Math.min(20,parseInt(q.get('pases')||'1',10)||1));
+    var frozen=Date.now()>DEADLINE.getTime();
+    var estado=null,savedNames=[];
+    var $=function(id){return document.getElementById(id);};
+    var note=$('rsvp-pases-note'),fields=$('rsvp-fields'),btn=$('rsvp-confirm-btn'),btnText=$('rsvp-btn-text'),
+        fb=$('rsvp-feedback'),yes=$('btnYes'),no=$('btnNo'),bandejaEl=$('rsvp-bandeja'),graciasEl=$('rsvp-gracias'),
+        gTitleEl=$('rsvp-gracias-title'),gSubEl=$('rsvp-gracias-sub'),editarBtn=$('rsvp-editar-btn');
+
+    if(para){
+      note.innerHTML='Querido(a) <strong></strong>, he reservado para ti:';
+      note.querySelector('strong').textContent=para;
+      $('rsvp-pases-display').style.display='';
+      $('rsvp-pases-num').textContent=pases;
+      $('rsvp-pases-display').querySelector('.rsvp-pases-label').textContent=pases===1?'Pase':'Pases';
+    }else{
+      note.textContent='Usa el enlace personal que recibiste para confirmar tu asistencia.';
+      bandejaEl.style.display='none';
+    }
+    function setFeedback(t,c){fb.textContent=t;fb.className=c||'';}
+    function buildFields(){
+      fields.innerHTML='';
+      for(var i=0;i<pases;i++){
+        var w=document.createElement('div');w.className='rsvp-field';
+        var inp=document.createElement('input');inp.type='text';inp.autocomplete='name';
+        inp.placeholder='Nombre completo del invitado '+(i+1);inp.value=savedNames[i]||(i===0&&!savedNames.length?para:'');
+        w.appendChild(inp);fields.appendChild(w);
+      }
+    }
+    function selectRsvp(v){
+      estado=v;
+      yes.classList.toggle('selected-yes',v==='confirmado');no.classList.toggle('selected-no',v==='declino');
+      if(v==='confirmado'){buildFields();fields.style.display='';}
+      else{fields.innerHTML='';fields.style.display='none';}
+    }
+    function mostrarGracias(e,nombres){
+      if(e==='confirmado'){
+        gTitleEl.textContent='¡Gracias por confirmar!';
+        gSubEl.textContent=nombres.length===1?'Te espero, '+nombres[0]+'.':'Confirmaste '+nombres.length+' lugares: '+nombres.join(', ')+'.';
+      }else{
+        gTitleEl.textContent='Gracias por avisarme';
+        gSubEl.textContent='Lamento que no puedas acompañarme. Te voy a extrañar.';
+      }
+      bandejaEl.style.display='none';graciasEl.style.display='';
+    }
+    function abrirBandeja(){graciasEl.style.display='none';bandejaEl.style.display='';setFeedback('','');}
+    yes.addEventListener('click',function(){if(!frozen)selectRsvp('confirmado');});
+    no.addEventListener('click',function(){if(!frozen)selectRsvp('declino');});
+    editarBtn.addEventListener('click',function(){if(!frozen)abrirBandeja();});
+
+    if(frozen){
+      yes.disabled=no.disabled=btn.disabled=editarBtn.disabled=true;
+      setFeedback('La fecha para confirmar ya pasó. Gracias por tu cariño.','rsvp-fb-info');
+    }
+
+    if(para){
+      fetch(API+'?nombre='+encodeURIComponent(para)+'&url_boda='+encodeURIComponent(URL_BODA))
+        .then(function(r){return r.json();}).then(function(j){
+          var d=j&&j.invitado;if(!d)return;
+          if(d.pases&&!q.get('pases')){pases=d.pases;$('rsvp-pases-num').textContent=pases;}
+          if(d.estado==='confirmado'||d.estado==='declino'){
+            savedNames=d.nombres_confirmados||[];selectRsvp(d.estado);
+            btnText.textContent='Actualizar respuesta';
+            mostrarGracias(d.estado,savedNames);
+          }
+        }).catch(function(){});
+    }
+
+    btn.addEventListener('click',function(){
+      if(frozen||!para)return;
+      if(!estado){setFeedback('Elige si asistirás o no.','rsvp-fb-err');return;}
+      var nombres=[];
+      if(estado==='confirmado'){
+        fields.querySelectorAll('input').forEach(function(i){var v=i.value.trim();if(v)nombres.push(v);});
+        if(!nombres.length){setFeedback('Escribe al menos un nombre.','rsvp-fb-err');return;}
+      }
+      btn.disabled=true;btnText.textContent='Enviando…';setFeedback('','');
+      fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        nombre:para,url_boda:URL_BODA,estado:estado,
+        pases_confirmados:estado==='confirmado'?nombres.length:0,nombres_confirmados:nombres})})
+      .then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j};});})
+      .then(function(x){
+        btn.disabled=false;
+        if(!x.ok||(x.j&&x.j.ok===false))throw new Error((x.j&&x.j.error)||'error');
+        savedNames=nombres;btnText.textContent='Actualizar respuesta';mostrarGracias(estado,nombres);
+      }).catch(function(){
+        btn.disabled=false;btnText.textContent='Confirmar asistencia';
+        setFeedback('No pudimos enviar tu respuesta. Inténtalo de nuevo en un momento.','rsvp-fb-err');
+      });
+    });
+  })();
+  </script>
