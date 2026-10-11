@@ -1,29 +1,51 @@
   <!-- RSVP · Panel de invitados (X pases) -->
   <section id="rsvp">
-    <p class="eyebrow rv">Confirma tu asistencia</p>
-    <h2 class="script-title rv">¿Me acompañas?</h2>
-    <span class="rsvp-deadline rv">Confirma antes del domingo 1 de noviembre de 2026</span>
     <div class="rsvp-card rv">
-      <p id="rsvp-pases-note" class="rsvp-hello"></p>
-      <div class="rsvp-pases-display" id="rsvp-pases-display" style="display:none">
-        <div class="rsvp-pases-label">Pases</div>
-        <div class="rsvp-pases-num" id="rsvp-pases-num">1</div>
-      </div>
-      <div id="rsvp-bandeja">
-        <div class="rsvp-toggle">
-          <button class="rsvp-toggle-btn" id="btnYes" type="button">Asistiré</button>
-          <button class="rsvp-toggle-btn" id="btnNo" type="button">No podré asistir</button>
+      <svg class="rsvp-corner rsvp-corner--tl" viewBox="0 0 52 52" fill="none" aria-hidden="true"><path d="M2 50 L2 2 L50 2" stroke="#9AA4B2" stroke-width=".9" opacity=".7"/><circle cx="2" cy="2" r="2.5" fill="#9AA4B2" opacity=".6"/></svg>
+      <svg class="rsvp-corner rsvp-corner--tr" viewBox="0 0 52 52" fill="none" aria-hidden="true"><path d="M2 50 L2 2 L50 2" stroke="#9AA4B2" stroke-width=".9" opacity=".7"/><circle cx="2" cy="2" r="2.5" fill="#9AA4B2" opacity=".6"/></svg>
+      <svg class="rsvp-corner rsvp-corner--bl" viewBox="0 0 52 52" fill="none" aria-hidden="true"><path d="M2 50 L2 2 L50 2" stroke="#9AA4B2" stroke-width=".9" opacity=".7"/><circle cx="2" cy="2" r="2.5" fill="#9AA4B2" opacity=".6"/></svg>
+      <svg class="rsvp-corner rsvp-corner--br" viewBox="0 0 52 52" fill="none" aria-hidden="true"><path d="M2 50 L2 2 L50 2" stroke="#9AA4B2" stroke-width=".9" opacity=".7"/><circle cx="2" cy="2" r="2.5" fill="#9AA4B2" opacity=".6"/></svg>
+      <div class="rsvp-inner">
+        <svg class="rsvp-ornament" viewBox="0 0 320 56" fill="none" aria-hidden="true">
+          <g stroke="#9AA4B2" stroke-width=".9" opacity=".9" fill="none">
+            <path d="M18 28 Q50 10 82 28 Q106 42 130 28"/><path d="M190 28 Q214 42 238 28 Q270 10 302 28"/>
+            <circle cx="160" cy="28" r="5.5"/><circle cx="160" cy="28" r="2" fill="#9AA4B2" stroke="none"/>
+            <path d="M148 28 L154 28" opacity=".5"/><path d="M166 28 L172 28" opacity=".5"/>
+            <path d="M154 20 Q160 13 166 20" opacity=".55"/><path d="M154 36 Q160 43 166 36" opacity=".55"/>
+          </g>
+        </svg>
+        <div class="eyebrow">Confirmación de asistencia</div>
+        <h2 class="rsvp-title">Tu presencia <em>lo es</em> todo</h2>
+        <p class="rsvp-text">Por favor confírmame tu asistencia antes del <strong>domingo 1 de noviembre de 2026</strong>. Me hará muy feliz saber que estarás conmigo.</p>
+        <p id="rsvp-name-display"></p>
+        <div class="rsvp-divider">
+          <svg class="rsvp-divider-heart" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C12.9 7 17 11.1 24 12C17 12.9 12.9 17 12 24C11.1 17 7 12.9 0 12C7 11.1 11.1 7 12 0Z"/></svg>
         </div>
-        <div class="rsvp-fields" id="rsvp-fields" style="display:none"></div>
-        <button class="rsvp-btn" id="rsvp-confirm-btn" type="button"><span id="rsvp-btn-text">Confirmar asistencia</span></button>
+        <p id="rsvp-pases-note"></p>
+        <div class="rsvp-pases-display" id="rsvp-pases-display" style="display:none">
+          <div class="rsvp-pases-label">Pases</div>
+          <div class="rsvp-pases-num" id="rsvp-pases-num">1</div>
+        </div>
+        <div id="rsvp-bandeja">
+          <div class="rsvp-toggle">
+            <button class="rsvp-toggle-btn" id="btnYes" type="button">¡Ahí estaré!</button>
+            <button class="rsvp-toggle-btn" id="btnNo" type="button">No podré asistir</button>
+          </div>
+          <div class="rsvp-fields" id="rsvp-fields" style="display:none"></div>
+          <button class="rsvp-btn" id="rsvp-confirm-btn" type="button"><span id="rsvp-btn-text">Confirmar asistencia</span></button>
+        </div>
+        <div class="rsvp-gracias" id="rsvp-gracias" style="display:none">
+          <svg class="rsvp-gracias-icon" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="8.5 12.5 11 15 16 9.5"/></svg>
+          <p class="rsvp-gracias-title" id="rsvp-gracias-title"></p>
+          <p class="rsvp-gracias-sub" id="rsvp-gracias-sub"></p>
+          <button class="rsvp-editar-btn" id="rsvp-editar-btn" type="button">Modificar mi respuesta</button>
+        </div>
+        <p id="rsvp-feedback"></p>
+        <div class="rsvp-deadline">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5z"/></svg>
+          Fecha límite · 1 Nov 2026
+        </div>
       </div>
-      <div class="rsvp-gracias" id="rsvp-gracias" style="display:none">
-        <svg class="rsvp-gracias-icon" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="8.5 12.5 11 15 16 9.5"/></svg>
-        <p class="rsvp-gracias-title" id="rsvp-gracias-title"></p>
-        <p class="rsvp-gracias-sub" id="rsvp-gracias-sub"></p>
-        <button class="rsvp-editar-btn" id="rsvp-editar-btn" type="button">Modificar mi respuesta</button>
-      </div>
-      <p id="rsvp-feedback"></p>
     </div>
   </section>
   <script>
@@ -42,8 +64,8 @@
         gTitleEl=$('rsvp-gracias-title'),gSubEl=$('rsvp-gracias-sub'),editarBtn=$('rsvp-editar-btn');
 
     if(para){
-      note.innerHTML='Querido(a) <strong></strong>, he reservado para ti:';
-      note.querySelector('strong').textContent=para;
+      $('rsvp-name-display').textContent=para;
+      note.textContent='He reservado para ti:';
       $('rsvp-pases-display').style.display='';
       $('rsvp-pases-num').textContent=pases;
       $('rsvp-pases-display').querySelector('.rsvp-pases-label').textContent=pases===1?'Pase':'Pases';
@@ -56,14 +78,14 @@
       fields.innerHTML='';
       for(var i=0;i<pases;i++){
         var w=document.createElement('div');w.className='rsvp-field';
-        var inp=document.createElement('input');inp.type='text';inp.autocomplete='name';
+        var inp=document.createElement('input');inp.type='text';inp.className='rsvp-input';inp.autocomplete='name';
         inp.placeholder='Nombre completo del invitado '+(i+1);inp.value=savedNames[i]||(i===0&&!savedNames.length?para:'');
         w.appendChild(inp);fields.appendChild(w);
       }
     }
     function selectRsvp(v){
       estado=v;
-      yes.classList.toggle('selected-yes',v==='confirmado');no.classList.toggle('selected-no',v==='declino');
+      yes.classList.toggle('rsvp-toggle-selected-yes',v==='confirmado');no.classList.toggle('rsvp-toggle-selected-no',v==='declino');
       if(v==='confirmado'){buildFields();fields.style.display='';}
       else{fields.innerHTML='';fields.style.display='none';}
     }
