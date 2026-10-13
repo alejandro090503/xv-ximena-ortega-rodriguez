@@ -561,6 +561,13 @@ body{font-weight:400}
 #rsvp .rsvp-toggle-btn{flex:1;padding:14px 8px;border:1.5px solid rgba(154,164,178,.5);background:rgba(255,255,255,.7);border-radius:8px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;font-weight:600;color:var(--text);cursor:pointer;transition:all .25s}
 #rsvp .rsvp-toggle-btn.rsvp-toggle-selected-yes{background:rgba(130,201,255,.22);border-color:var(--accent);color:var(--accent)}
 #rsvp .rsvp-toggle-btn.rsvp-toggle-selected-no{background:rgba(154,164,178,.15);border-color:#7A8594;color:#4F5A68}
+.rsvp-asig-nota{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:18px;color:var(--accent2);text-align:center;margin:0 auto 16px;max-width:420px;line-height:1.55}
+.rsvp-asignados{display:flex;flex-direction:column;gap:12px;max-width:420px;margin:0 auto 22px}
+.rsvp-person{border:1px solid rgba(154,164,178,.5);background:rgba(255,255,255,.7);border-radius:12px;padding:16px 14px 14px;text-align:center;transition:border-color .3s,background .3s}
+.rsvp-person[data-choice="yes"]{border-color:var(--accent);background:rgba(130,201,255,.14)}
+.rsvp-person[data-choice="no"]{border-color:#7A8594;background:rgba(154,164,178,.12)}
+.rsvp-person-name{font-family:'Great Vibes',cursive;font-size:32px;color:var(--accent);line-height:1.2;margin-bottom:12px}
+#rsvp .rsvp-person-btns{display:flex;gap:10px;margin:0}
 #rsvp .rsvp-fields{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:0 auto 20px}
 #rsvp .rsvp-field{margin:0}
 .rsvp-input{width:100%;padding:15px 20px;border:1.5px solid rgba(154,164,178,.5);border-radius:12px;background:rgba(255,255,255,.85);font-family:'Jost',sans-serif;font-size:16px;font-weight:500;color:var(--text);outline:none;transition:border-color .3s,box-shadow .3s;-webkit-appearance:none;min-height:52px}
@@ -1355,11 +1362,8 @@ body{font-weight:400}
           <div class="rsvp-pases-num" id="rsvp-pases-num">1</div>
         </div>
         <div id="rsvp-bandeja">
-          <div class="rsvp-toggle">
-            <button class="rsvp-toggle-btn" id="btnYes" type="button">¡Ahí estaré!</button>
-            <button class="rsvp-toggle-btn" id="btnNo" type="button">No podré asistir</button>
-          </div>
-          <div class="rsvp-fields" id="rsvp-fields" style="display:none"></div>
+          <p class="rsvp-asig-nota" id="rsvp-asig-nota" style="display:none">Marca si asistirá cada persona de tu invitación.</p>
+          <div class="rsvp-asignados" id="rsvp-fields" style="display:none"></div>
           <button class="rsvp-btn" id="rsvp-confirm-btn" type="button"><span id="rsvp-btn-text">Confirmar asistencia</span></button>
         </div>
         <div class="rsvp-gracias" id="rsvp-gracias" style="display:none">
@@ -1377,99 +1381,199 @@ body{font-weight:400}
     </div>
   </section>
   <script>
+  /* RSVP · panel de invitados (nombres asignados) */
   (function(){
-    var API='https://panel-invitados.vercel.app/api/confirmar';
-    var URL_BODA='https://xv-ximena-ortega-rodriguez.vercel.app';
-    var DEADLINE=new Date('2026-11-01T23:59:59-06:00');
-    var q=new URLSearchParams(location.search);
-    var para=(q.get('para')||'').trim();
-    var pases=Math.max(1,Math.min(20,parseInt(q.get('pases')||'1',10)||1));
-    var frozen=Date.now()>DEADLINE.getTime();
-    var estado=null,savedNames=[];
-    var $=function(id){return document.getElementById(id);};
-    var note=$('rsvp-pases-note'),fields=$('rsvp-fields'),btn=$('rsvp-confirm-btn'),btnText=$('rsvp-btn-text'),
-        fb=$('rsvp-feedback'),yes=$('btnYes'),no=$('btnNo'),bandejaEl=$('rsvp-bandeja'),graciasEl=$('rsvp-gracias'),
-        gTitleEl=$('rsvp-gracias-title'),gSubEl=$('rsvp-gracias-sub'),editarBtn=$('rsvp-editar-btn');
+    var PANEL_API = 'https://panel-invitados.vercel.app/api/confirmar';
+    var RSVP_URL  = 'https://xv-ximena-ortega-rodriguez.vercel.app';
+    var DEADLINE  = new Date('2026-11-01T23:59:59-06:00');   /* 1 nov 2026 */
+    var frozen    = Date.now() > DEADLINE.getTime();
 
-    if(para){
-      $('rsvp-name-display').textContent=para;
-      note.textContent='He reservado para ti:';
-      $('rsvp-pases-display').style.display='';
-      $('rsvp-pases-num').textContent=pases;
-      $('rsvp-pases-display').querySelector('.rsvp-pases-label').textContent=pases===1?'Pase':'Pases';
-    }else{
-      note.textContent='Usa el enlace personal que recibiste para confirmar tu asistencia.';
-      bandejaEl.style.display='none';
+    /* El panel manda un token base64url en ?i= ("nombre|pases|menores") que
+       WhatsApp no rompe. Se conserva ?para= por si se envió algún link así. */
+    function decodeInvite(tok){
+      try{
+        var b64 = tok.replace(/-/g,'+').replace(/_/g,'/');
+        while(b64.length % 4) b64 += '=';
+        var bin = atob(b64), bytes = new Uint8Array(bin.length);
+        for(var i=0;i<bin.length;i++) bytes[i] = bin.charCodeAt(i);
+        return (new TextDecoder().decode(bytes).split('|')[0] || '').trim();
+      }catch(e){ return ''; }
     }
-    function setFeedback(t,c){fb.textContent=t;fb.className=c||'';}
-    function buildFields(){
-      fields.innerHTML='';
-      for(var i=0;i<pases;i++){
-        var w=document.createElement('div');w.className='rsvp-field';
-        var inp=document.createElement('input');inp.type='text';inp.className='rsvp-input';inp.autocomplete='name';
-        inp.placeholder='Nombre completo del invitado '+(i+1);inp.value=savedNames[i]||(i===0&&!savedNames.length?para:'');
-        w.appendChild(inp);fields.appendChild(w);
+    var qs = new URLSearchParams(window.location.search);
+    var tok = qs.get('i');
+    var urlPara = (tok ? decodeInvite(tok) : '') || (qs.get('para') || '').trim();
+
+    var $ = function(id){ return document.getElementById(id); };
+    var nameEl    = $('rsvp-name-display');
+    var noteEl    = $('rsvp-pases-note');
+    var dispEl    = $('rsvp-pases-display');
+    var numEl     = $('rsvp-pases-num');
+    var notaEl    = $('rsvp-asig-nota');
+    var listEl    = $('rsvp-fields');
+    var bandejaEl = $('rsvp-bandeja');
+    var graciasEl = $('rsvp-gracias');
+    var gTitleEl  = $('rsvp-gracias-title');
+    var gSubEl    = $('rsvp-gracias-sub');
+    var editarBtn = $('rsvp-editar-btn');
+    var btn       = $('rsvp-confirm-btn');
+    var btnText   = $('rsvp-btn-text');
+    var feedEl    = $('rsvp-feedback');
+    if(!btn || !listEl) return;
+
+    var asignados = [], choices = {}, bloqueado = false;
+
+    /* Sin acentos ni mayúsculas para emparejar respuestas guardadas */
+    function clave(x){ return String(x || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim(); }
+    function setFeedback(t, c){ feedEl.textContent = t || ''; feedEl.className = c || ''; }
+    function cerrado(){ return frozen || bloqueado; }
+
+    function render(){
+      listEl.innerHTML = '';
+      asignados.forEach(function(nm, idx){
+        var card = document.createElement('div');
+        card.className = 'rsvp-person';
+        if(choices[idx]) card.setAttribute('data-choice', choices[idx]);
+        var name = document.createElement('div');
+        name.className = 'rsvp-person-name';
+        name.textContent = nm;
+        var row = document.createElement('div');
+        row.className = 'rsvp-toggle rsvp-person-btns';
+        [['yes','Asistirá'],['no','No asistirá']].forEach(function(op){
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'rsvp-toggle-btn' + (choices[idx] === op[0] ? (op[0] === 'yes' ? ' rsvp-toggle-selected-yes' : ' rsvp-toggle-selected-no') : '');
+          b.textContent = op[1];
+          b.setAttribute('aria-pressed', choices[idx] === op[0] ? 'true' : 'false');
+          b.disabled = cerrado();
+          b.addEventListener('click', function(){
+            if(cerrado()) return;
+            choices[idx] = op[0]; setFeedback(''); render();
+          });
+          row.appendChild(b);
+        });
+        card.appendChild(name); card.appendChild(row);
+        listEl.appendChild(card);
+      });
+      listEl.style.display = asignados.length ? 'flex' : 'none';
+      notaEl.style.display = asignados.length ? 'block' : 'none';
+    }
+
+    function mostrarGracias(estado, nombres){
+      if(estado === 'confirmado'){
+        gTitleEl.textContent = '¡Gracias por confirmar!';
+        gSubEl.textContent = nombres.length === 1
+          ? 'Te espero, ' + nombres[0] + '.'
+          : 'Confirmaste ' + nombres.length + ' lugares: ' + nombres.join(', ') + '.';
+      } else {
+        gTitleEl.textContent = 'Gracias por avisarme';
+        gSubEl.textContent = 'Lamento que no puedan acompañarme. Los voy a extrañar.';
       }
+      bandejaEl.style.display = 'none';
+      graciasEl.style.display = '';
+      editarBtn.disabled = frozen;
+      editarBtn.style.display = bloqueado ? 'none' : '';
+      setFeedback('');
     }
-    function selectRsvp(v){
-      estado=v;
-      yes.classList.toggle('rsvp-toggle-selected-yes',v==='confirmado');no.classList.toggle('rsvp-toggle-selected-no',v==='declino');
-      if(v==='confirmado'){buildFields();fields.style.display='';}
-      else{fields.innerHTML='';fields.style.display='none';}
-    }
-    function mostrarGracias(e,nombres){
-      if(e==='confirmado'){
-        gTitleEl.textContent='¡Gracias por confirmar!';
-        gSubEl.textContent=nombres.length===1?'Te espero, '+nombres[0]+'.':'Confirmaste '+nombres.length+' lugares: '+nombres.join(', ')+'.';
-      }else{
-        gTitleEl.textContent='Gracias por avisarme';
-        gSubEl.textContent='Lamento que no puedas acompañarme. Te voy a extrañar.';
-      }
-      bandejaEl.style.display='none';graciasEl.style.display='';
-    }
-    function abrirBandeja(){graciasEl.style.display='none';bandejaEl.style.display='';setFeedback('','');}
-    yes.addEventListener('click',function(){if(!frozen)selectRsvp('confirmado');});
-    no.addEventListener('click',function(){if(!frozen)selectRsvp('declino');});
-    editarBtn.addEventListener('click',function(){if(!frozen)abrirBandeja();});
+    editarBtn.addEventListener('click', function(){
+      if(cerrado()) return;
+      graciasEl.style.display = 'none'; bandejaEl.style.display = ''; setFeedback('');
+    });
 
-    if(frozen){
-      yes.disabled=no.disabled=btn.disabled=editarBtn.disabled=true;
-      setFeedback('La fecha para confirmar ya pasó. Gracias por tu cariño.','rsvp-fb-info');
+    function cierra(msg){
+      btn.disabled = true;
+      Array.prototype.forEach.call(listEl.querySelectorAll('button'), function(b){ b.disabled = true; });
+      if(msg) setFeedback(msg, 'rsvp-fb-err');
+    }
+    function cierraPorBloqueo(){
+      bloqueado = true; editarBtn.style.display = 'none';
+      btnText.textContent = 'Confirmaciones cerradas';
+      cierra('Las confirmaciones de esta invitación ya están cerradas. Si necesitas un cambio, contacta a la familia.');
+    }
+    function applyFreeze(){
+      if(!frozen) return;
+      editarBtn.disabled = true; btnText.textContent = 'Fecha límite alcanzada';
+      cierra(''); setFeedback('La fecha para confirmar ya pasó. Gracias por tu cariño.', 'rsvp-fb-info');
     }
 
-    if(para){
-      fetch(API+'?nombre='+encodeURIComponent(para)+'&url_boda='+encodeURIComponent(URL_BODA))
-        .then(function(r){return r.json();}).then(function(j){
-          var d=j&&j.invitado;if(!d)return;
-          if(d.pases&&!q.get('pases')){pases=d.pases;$('rsvp-pases-num').textContent=pases;}
-          if(d.estado==='confirmado'||d.estado==='declino'){
-            savedNames=d.nombres_confirmados||[];selectRsvp(d.estado);
-            btnText.textContent='Actualizar respuesta';
-            mostrarGracias(d.estado,savedNames);
+    if(urlPara){
+      nameEl.textContent = urlPara;
+      noteEl.textContent = 'He reservado para ti:';
+    } else {
+      noteEl.textContent = 'Usa el enlace personal que recibiste para confirmar tu asistencia.';
+    }
+    cierra('');
+
+    if(urlPara){
+      fetch(PANEL_API + '?nombre=' + encodeURIComponent(urlPara) + '&url_boda=' + encodeURIComponent(RSVP_URL))
+        .then(function(r){ return r.json(); })
+        .then(function(resp){
+          var d = resp && resp.invitado;
+          /* Si el panel no la tiene no se deja confirmar (crearía una invitación suelta) */
+          if(!d){ cierra('No encontramos tu invitación. Pide a la familia que te envíe tu enlace de nuevo.'); applyFreeze(); return; }
+          asignados = (Array.isArray(d.nombres_asignados) ? d.nombres_asignados : []).filter(function(n){ return n && String(n).trim(); });
+          if(!asignados.length){ cierra('Tu invitación aún no tiene lugares asignados. Contacta a la familia.'); applyFreeze(); return; }
+          numEl.textContent = asignados.length; dispEl.style.display = '';
+          dispEl.querySelector('.rsvp-pases-label').textContent = asignados.length === 1 ? 'Pase' : 'Pases';
+          if(d.estado === 'confirmado' || d.estado === 'declino'){
+            var conf = (d.nombres_confirmados || []).map(clave);
+            asignados.forEach(function(nm, i){ choices[i] = d.estado === 'declino' ? 'no' : (conf.indexOf(clave(nm)) >= 0 ? 'yes' : 'no'); });
           }
-        }).catch(function(){});
+          render();
+          if(!frozen) btn.disabled = false;
+          if(d.estado === 'confirmado' || d.estado === 'declino'){
+            btnText.textContent = 'Actualizar respuesta';
+            mostrarGracias(d.estado, d.nombres_confirmados || []);
+          }
+          if(d.bloqueado) cierraPorBloqueo();
+          applyFreeze();
+        })
+        .catch(function(){ setFeedback('No pudimos cargar tu invitación. Recarga la página.', 'rsvp-fb-err'); applyFreeze(); });
+    } else {
+      bandejaEl.style.display = 'none';
+      applyFreeze();
     }
 
-    btn.addEventListener('click',function(){
-      if(frozen||!para)return;
-      if(!estado){setFeedback('Elige si asistirás o no.','rsvp-fb-err');return;}
-      var nombres=[];
-      if(estado==='confirmado'){
-        fields.querySelectorAll('input').forEach(function(i){var v=i.value.trim();if(v)nombres.push(v);});
-        if(!nombres.length){setFeedback('Escribe al menos un nombre.','rsvp-fb-err');return;}
-      }
-      btn.disabled=true;btnText.textContent='Enviando…';setFeedback('','');
-      fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-        nombre:para,url_boda:URL_BODA,estado:estado,
-        pases_confirmados:estado==='confirmado'?nombres.length:0,nombres_confirmados:nombres})})
-      .then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j};});})
-      .then(function(x){
-        btn.disabled=false;
-        if(!x.ok||(x.j&&x.j.ok===false))throw new Error((x.j&&x.j.error)||'error');
-        savedNames=nombres;btnText.textContent='Actualizar respuesta';mostrarGracias(estado,nombres);
-      }).catch(function(){
-        btn.disabled=false;btnText.textContent='Confirmar asistencia';
-        setFeedback('No pudimos enviar tu respuesta. Inténtalo de nuevo en un momento.','rsvp-fb-err');
+    btn.addEventListener('click', function(){
+      if(btn.disabled || cerrado() || !urlPara || !asignados.length) return;
+      var faltan = asignados.filter(function(_, i){ return !choices[i]; }).length;
+      if(faltan){ setFeedback('Por favor responde por cada invitado (' + faltan + ' pendiente' + (faltan === 1 ? '' : 's') + ').', 'rsvp-fb-err'); return; }
+      var si = asignados.filter(function(_, i){ return choices[i] === 'yes'; });
+      var estadoFinal = si.length ? 'confirmado' : 'declino';
+      btn.disabled = true; btnText.textContent = 'Enviando…'; setFeedback('');
+      fetch(PANEL_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre: urlPara,
+          url_boda: RSVP_URL,
+          estado: estadoFinal,
+          pases_confirmados: si.length,
+          nombres_confirmados: si
+        })
+      })
+      .then(function(r){ return r.json().catch(function(){ return null; }).then(function(d){ return {ok:r.ok, d:d}; }); })
+      .then(function(res){
+        btn.disabled = false;
+        /* Solo se da por registrada si el panel la guardó de verdad */
+        if(res.ok && res.d && res.d.ok){
+          btnText.textContent = 'Actualizar respuesta';
+          mostrarGracias(estadoFinal, si);
+          return;
+        }
+        btnText.textContent = 'Confirmar asistencia';
+        var err = res.d && res.d.error;
+        if(err === 'respuestas_cerradas'){ cierraPorBloqueo(); return; }
+        setFeedback(
+          err === 'no_match'
+            ? 'No pudimos identificar tu invitación. Abre el enlace personalizado que te enviaron.'
+            : err === 'invitacion_borrada'
+              ? 'Esta invitación ya no está activa. Contacta a la familia para que te envíe un enlace nuevo.'
+              : 'No pudimos enviar tu respuesta. Inténtalo de nuevo en un momento.',
+          'rsvp-fb-err');
+      })
+      .catch(function(){
+        btn.disabled = false; btnText.textContent = 'Confirmar asistencia';
+        setFeedback('Error de conexión. Inténtalo de nuevo en un momento.', 'rsvp-fb-err');
       });
     });
   })();
