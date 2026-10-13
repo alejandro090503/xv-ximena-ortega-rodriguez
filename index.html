@@ -905,6 +905,13 @@ body{font-weight:400}
 .fp-fade .fp-2{position:absolute;left:7px;top:7px;width:calc(100% - 14px);opacity:0;animation:fpFade 10s ease-in-out infinite}
 @keyframes fpFade{0%,38%{opacity:0}50%,88%{opacity:1}100%{opacity:0}}
 
+/* ROUND6b */
+/* ROUND6b · respiración lenta de las fotos a pantalla completa (zoom in → zoom out) */
+.foto-sec-bg,.closing-bg{animation:fsBreathe 16s cubic-bezier(.45,0,.55,1) infinite alternate!important;will-change:scale,translate}
+.foto-sec:nth-of-type(odd) .foto-sec-bg{animation-delay:-5s!important}
+@keyframes fsBreathe{0%{scale:1;translate:0 0}100%{scale:1.14;translate:0 -2%}}
+@media (prefers-reduced-motion:reduce){.foto-sec-bg,.closing-bg{animation:none!important}}
+
 </style>
 </head>
 <body>
