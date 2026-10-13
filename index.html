@@ -713,6 +713,165 @@ body{font-weight:400}
 .album-locked .qr-blur-box{border-radius:14px;box-shadow:0 14px 34px rgba(15,47,85,.16);animation:levitate 5.5s ease-in-out infinite}
 @media (prefers-reduced-motion:reduce){.cd-elegant,.fam-card,.loc-card,.dc-card,.drop-photo,#rsvp .rsvp-card,.cap-art img,.cap-halo,.zap,.zap-shine{animation:none!important}}
 
+/* ROUND4 */
+#sgifts{position:relative;overflow:hidden;}
+.env-rain{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.env-rain-item{position:absolute;top:-46px;will-change:transform;opacity:0}
+.env-stage{position:relative;z-index:1}
+.env-interactive{display:flex;flex-direction:column;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;outline:none;border:none;background:none;padding:0;margin:26px auto 0;opacity:0}
+.env-body{perspective:700px;position:relative;width:min(258px,74vw);aspect-ratio:260/200;filter:drop-shadow(0 10px 26px rgba(14,36,64,.22))}
+.env-body svg.env-svg{width:100%;height:100%;display:block}
+.env-flap-wrap{position:absolute;top:23%;left:6.9%;width:86.2%;height:43%;transform-origin:top center;transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .65s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:2}
+.env-interactive.open .env-flap-wrap{transform:rotateX(-175deg)}
+.env-seal{position:absolute;top:52%;left:50%;width:23%;aspect-ratio:1;transform:translate(-50%,-50%);z-index:3;transition:opacity .35s ease,transform .5s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.env-interactive.open .env-seal{opacity:0;transform:translate(-50%,-50%) scale(.7)}
+.env-open-content{overflow:hidden;max-height:0;opacity:0;transition:max-height .55s .3s ease,opacity .4s .38s ease;display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 16px;text-align:center;pointer-events:none}
+.env-interactive.open .env-open-content{max-height:340px;opacity:1;pointer-events:auto;margin-top:20px}
+.env-mailbox-icon{width:42px;height:42px;color:var(--accent);margin-top:6px}
+.env-title{font-family:'Great Vibes',cursive;font-size:clamp(30px,8.5vw,38px);line-height:1.35;padding:.08em 0;
+  background-image:linear-gradient(100deg,#6B4F1C 0%,#8A6A28 20%,#C9A04E 32%,#A8822F 40%,#6B4F1C 58%,#B98F3C 80%,#6B4F1C 100%);
+  background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:goldSweep 6s linear infinite}
+.env-desc{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;font-style:italic;color:var(--ink);line-height:1.7;max-width:310px}
+.env-tap-hint{font-family:'Bodoni Moda',serif;font-weight:600;font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-top:18px;opacity:0;transition:opacity .5s ease;position:relative;z-index:1}
+.env-tap-hint.show{opacity:.9;animation:envHintPulse 2.4s ease-in-out infinite}
+.env-interactive.open~.env-tap-hint{opacity:0!important;animation:none;pointer-events:none}
+@keyframes envHintPulse{0%,100%{opacity:.55}50%{opacity:1}}
+.env-body.landed{animation:envBreathe 3.6s ease-in-out infinite}
+@keyframes envBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+
+/* ═════════ RONDA 4 · paleta clara: azul cielo + blanco + oro ═════════ */
+:root{--gold:#B98F3C;--gold-deep:#8A6A28;--gold-lt:#E8D5A3;--ink:#2A4560;--ink-soft:#54728C;
+  --goldgrad:linear-gradient(100deg,#6B4F1C 0%,#7A5C22 10%,#8A6A28 20%,#A8822F 27%,#C9A04E 32%,#A8822F 37%,#9A7830 46%,#6B4F1C 58%,#8A6A28 70%,#B98F3C 80%,#7A5C22 90%,#6B4F1C 100%)}
+@keyframes goldSweep{0%{background-position:200% center}100%{background-position:-100% center}}
+
+/* títulos en oro (como los marcos de xv-zoe) */
+.script-title,.sec-title,#itinerario .script-title,#regalos .script-title,.env-title{
+  background:var(--goldgrad)!important;background-size:300% 100%!important;-webkit-background-clip:text!important;background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;color:transparent;animation:goldSweep 6s linear infinite!important;filter:drop-shadow(0 1px 0 rgba(255,255,255,.6))}
+.script-title,.sec-title{padding:.12em .3em .24em;margin-left:-.3em;margin-right:-.3em}
+.sec-title{font-family:'Great Vibes',cursive;font-size:54px;text-align:center;line-height:1.05;margin-bottom:4px}
+.eyebrow{color:var(--accent)!important}
+
+/* ── fondos oscuros → claros ── */
+#quote{--fx:linear-gradient(180deg,#E3F1FF,#F2F8FF)}
+#itinerario{--fx:linear-gradient(180deg,#EAF5FF 0%,#D7ECFF 50%,#EAF5FF 100%)}
+#footer .sec-fx{--fx:linear-gradient(180deg,#E3F1FF,#D4EAFF)}
+.quote-txt{color:var(--ink)!important}
+.quote-mark{color:var(--gold)!important;opacity:.35}
+.quote-sig{background:var(--goldgrad);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:goldSweep 6s linear infinite;padding:.1em .3em}
+.quote-deco-fan path{stroke:#C9A04E}
+
+/* itinerario claro */
+#itinerario{color:var(--ink)}
+.itin-sky{opacity:.9;background-image:radial-gradient(2px 2px at 12% 18%,#fff,transparent),radial-gradient(2px 2px at 47% 12%,#fff,transparent),radial-gradient(2.5px 2.5px at 84% 16%,#fff,transparent),radial-gradient(2px 2px at 8% 66%,#fff,transparent),radial-gradient(2px 2px at 72% 70%,#fff,transparent),radial-gradient(2px 2px at 56% 90%,#fff,transparent)}
+.itin-sky::after{background:radial-gradient(ellipse 70% 30% at 50% 8%,rgba(255,255,255,.7),transparent 70%)}
+.itin-castle{opacity:.22}
+.cap-once{color:var(--gold);text-shadow:none}
+#itinerario .section-sub{color:var(--accent2)}
+.cap-halo{background:radial-gradient(circle,rgba(255,255,255,.95) 0%,rgba(255,255,255,.6) 50%,transparent 72%);box-shadow:inset 0 0 0 1px rgba(201,160,78,.55),0 0 0 6px rgba(255,255,255,.35),0 8px 30px rgba(74,144,200,.18)}
+.cap-halo::before{border-color:rgba(201,160,78,.45)}
+.cap-art img{filter:drop-shadow(0 6px 12px rgba(42,69,96,.18))}
+.cap-txt{background:rgba(255,255,255,.88);border:1px solid rgba(201,160,78,.38);box-shadow:0 12px 30px rgba(74,144,200,.14)}
+.cap-txt::before{background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.7) 50%,transparent 65%);background-size:260% 100%}
+.cap-num{color:var(--gold-deep)}
+.cap-hora{color:var(--accent)}
+.cap-tit{color:var(--dark);text-shadow:none}
+.cap-desc{color:var(--ink)}
+.cap--star .cap-txt{background:linear-gradient(140deg,#fff,#EAF5FF);border-color:rgba(201,160,78,.7)}
+.cap-dust i{background:#C9A04E;filter:drop-shadow(0 0 3px rgba(201,160,78,.6))}
+.cap-reloj{background:rgba(255,255,255,.88);border-color:rgba(201,160,78,.4)}
+.cap-reloj-t{color:var(--dark)}
+.cap-reloj-d{color:var(--ink)}
+
+/* footer claro */
+#footer .footer-names{background:var(--goldgrad);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:goldSweep 6s linear infinite}
+.ft-tiara{filter:drop-shadow(0 2px 6px rgba(185,143,60,.35))}
+.ft-eyebrow{color:var(--accent)}
+.ft-surname{color:var(--dark)}
+#footer .footer-date{color:var(--accent2)}
+.ft-line{color:var(--gold)}
+.ft-line span{background:linear-gradient(90deg,transparent,rgba(185,143,60,.7),transparent)}
+.ft-thanks{color:var(--ink)}
+#footer .footer-credit{color:var(--ink-soft)}
+#footer .footer-credit span{color:var(--accent)}
+/* cierre: la foto se funde en claro hacia el footer */
+.closing{padding-bottom:120px}
+.closing-veil{background:linear-gradient(180deg,rgba(15,47,85,0) 0%,rgba(15,47,85,.12) 38%,rgba(15,47,85,.55) 64%,rgba(15,47,85,.5) 84%,#E3F1FF 100%)}
+.closing-sign{background:linear-gradient(135deg,#FFFFFF,#F3E3B8 45%,#FFFFFF 70%,#E8D5A3);background-size:220% 100%;-webkit-background-clip:text;background-clip:text}
+
+/* ── portada con la foto que eligió la clienta (horizontal) ── */
+.hero-bg{background-image:url('portada.jpg');background-position:30% center}
+.hero-veil{background:linear-gradient(to bottom,rgba(15,47,85,.12) 0%,rgba(15,47,85,0) 30%,rgba(15,47,85,.35) 58%,rgba(15,47,85,.62) 82%,rgba(15,47,85,.45) 92%,var(--bg) 100%)}
+
+/* ── cuenta regresiva sobre foto ── */
+#countdown{min-height:92vh;display:flex;flex-direction:column;justify-content:center;padding:110px 24px}
+.cd-photo{position:absolute;inset:0;z-index:-1;background:url('foto4.jpg') center 30%/cover no-repeat;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.6) 70px,#000 150px,#000 calc(100% - 150px),rgba(0,0,0,.6) calc(100% - 70px),transparent 100%);
+          mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.6) 70px,#000 150px,#000 calc(100% - 150px),rgba(0,0,0,.6) calc(100% - 70px),transparent 100%)}
+.cd-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,47,85,.35),rgba(15,47,85,.5) 50%,rgba(15,47,85,.35))}
+#countdown .eyebrow{color:#fff!important;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+#countdown .script-title{background:linear-gradient(100deg,#FFFFFF 0%,#F3E3B8 30%,#FFFFFF 50%,#E8D5A3 75%,#FFFFFF 100%)!important;background-size:300% 100%!important;-webkit-background-clip:text!important;background-clip:text!important;filter:drop-shadow(0 2px 10px rgba(0,0,0,.45))}
+#countdown .section-sub{color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+#countdown .cd-elegant{background:rgba(255,255,255,.16)!important;border:1px solid rgba(255,255,255,.55)!important;box-shadow:0 18px 40px rgba(0,0,0,.25)!important}
+#countdown .cd-value{color:#fff!important;text-shadow:0 2px 12px rgba(0,0,0,.4)}
+#countdown .cd-lbl{color:#fff!important;opacity:1}
+#countdown .cd-orn-d,#countdown .cd-orn-d2,#countdown .cd-dot-v{background:#fff!important}
+
+/* ── padres y padrinos con marcos florales (xv-zoe) ── */
+.fam-sec{position:relative;padding:30px 18px;text-align:center}
+.heart-div{display:flex;align-items:center;justify-content:center;gap:14px;margin:6px auto 22px}
+.heart-div .hd-bar{width:46px;height:1px;background:linear-gradient(90deg,transparent,#C9A04E)}
+.heart-div .hd-bar.r{background:linear-gradient(90deg,#C9A04E,transparent)}
+.heart-div svg{width:15px;height:15px;color:var(--accent)}
+.fam-names{font-family:'Cormorant Garamond',serif;font-size:23px;color:var(--dark);line-height:1.6;font-weight:600}
+.fam-amp{font-family:'Great Vibes',cursive;font-size:30px;color:var(--gold);display:block;margin:2px 0}
+.marco{position:relative;padding:96px 50px 100px;isolation:isolate;max-width:420px;margin:0 auto;animation:levitate 6s ease-in-out infinite}
+#padrinos .marco{animation-delay:-2s}
+.marco>*{position:relative;z-index:1}
+.marco::before{content:'';position:absolute;inset:11% 13%;z-index:0;pointer-events:none;background:radial-gradient(ellipse at center,rgba(255,255,255,.92) 0%,rgba(255,255,255,.75) 58%,rgba(255,255,255,0) 100%);filter:blur(8px)}
+.marco::after{content:'';position:absolute;inset:-16px -14px;z-index:2;pointer-events:none;background:var(--marco) center/100% 100% no-repeat;opacity:0;transition:opacity 1.2s ease}
+.marco.is-in::after{opacity:.96}
+.marco-a{--marco:url('./marco-1.webp')}
+.marco-b{--marco:url('./marco-2.webp')}
+@media (max-width:380px){.marco{padding:78px 34px 82px}.marco::after{inset:-12px -10px}.fam-names{font-size:21px}}
+
+/* ── fotos sueltas entre secciones ── */
+.foto-break{position:relative;padding:26px 0 30px;display:flex;justify-content:center}
+.foto-break figure{margin:0;width:min(74%,320px);background:#fff;padding:9px 9px 34px;border-radius:3px;box-shadow:0 18px 40px rgba(42,69,96,.18),0 2px 8px rgba(42,69,96,.08);animation:levitate 6s ease-in-out infinite}
+.foto-break--l figure{rotate:-3deg}
+.foto-break--r figure{rotate:2.5deg;animation-delay:-2.5s}
+.foto-break img{width:100%;aspect-ratio:2/3;object-fit:cover;object-position:center 25%;display:block;border-radius:2px}
+.foto-break::before{content:'';position:absolute;left:50%;top:50%;width:90%;height:70%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(130,201,255,.28),transparent 70%);z-index:-1;pointer-events:none}
+.fb-sp{position:absolute;top:20px;right:calc(50% - min(37%,160px) - 6px);width:16px;height:16px;background:#C9A04E;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);animation:spark 2.6s ease-in-out infinite}
+.foto-break--l .fb-sp{right:auto;left:calc(50% - min(37%,160px) - 6px);animation-delay:1.2s}
+
+/* ── ubicaciones en lista con foto del lugar ── */
+.lugar-card{max-width:400px;margin:0 auto 26px;background:#fff;border-radius:16px;overflow:hidden;text-align:center;padding:0 22px 26px;
+  border:1px solid rgba(201,160,78,.3);box-shadow:0 10px 36px rgba(74,144,200,.13);animation:levitate 6s ease-in-out infinite}
+.lugar-card:nth-of-type(2){animation-delay:-2s}.lugar-card:nth-of-type(3){animation-delay:-4s}
+.lugar-photo{margin:0 -22px 18px;position:relative}
+.lugar-photo img{width:100%;height:200px;object-fit:cover;display:block}
+.lugar-photo::after{content:'';position:absolute;inset:auto 0 0;height:50px;background:linear-gradient(to bottom,transparent,#fff)}
+.lugar-lt{font-family:'Great Vibes',cursive;font-size:40px;line-height:1.1;padding:.05em .3em .15em;background:var(--goldgrad);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:goldSweep 6s linear infinite}
+.lugar-name{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:700;color:var(--dark);margin:4px 0 8px;line-height:1.25}
+.lugar-addr{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--ink);line-height:1.55}
+.lugar-addr strong{color:var(--dark)}
+.lugar-time{margin:14px auto 0;display:flex;flex-direction:column;align-items:center;gap:2px}
+.lugar-time span{font-family:'Bodoni Moda',serif;font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold-deep)}
+.lugar-time strong{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--dark)}
+.lugar-nota{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;font-weight:500;color:var(--accent2);margin-top:8px;line-height:1.5}
+.lugar-btn{display:inline-flex;align-items:center;gap:8px;margin-top:16px;min-height:48px;padding:12px 30px;border-radius:30px;background:linear-gradient(135deg,#4A90C8,#7FB8E6);color:#fff;text-decoration:none;
+  font-family:'Jost',sans-serif;font-size:13px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;box-shadow:0 8px 20px rgba(74,144,200,.3)}
+.lugar-btn svg{width:15px;height:15px;fill:currentColor}
+
+/* ── lluvia de sobres ── */
+#sgifts{padding:90px 24px;position:relative;overflow:hidden}
+#sgifts .sec-fx{--fx:var(--surface)}
+.env-desc{color:var(--ink)!important}
+.env-mailbox-icon{color:var(--gold)!important}
+.env-tap-hint{color:var(--accent)!important;font-size:13px}
+
 </style>
 </head>
 <body>
@@ -760,6 +919,7 @@ body{font-weight:400}
   <!-- COUNTDOWN -->
   <section id="countdown" class="sec rv">
     <div class="sec-fx" aria-hidden="true"></div>
+    <div class="cd-photo" aria-hidden="true"></div>
     <p class="eyebrow">Faltan</p>
     <h2 class="script-title">Cuenta Regresiva</h2>
     <p class="section-sub">Para que el reloj marque la medianoche más mágica</p>
@@ -816,6 +976,8 @@ body{font-weight:400}
     </div>
   </section>
 
+  <div class="foto-break foto-break--r rv"><figure><img src="foto2.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
+
   <!-- QUOTE -->
   <section id="quote">
     <div class="sec-fx" aria-hidden="true"></div>
@@ -841,27 +1003,31 @@ body{font-weight:400}
     <div class="quote-bar rv"></div>
   </section>
 
-  <!-- FAMILIARES -->
-  <section id="familiares" class="rv">
+  <div class="foto-break foto-break--l rv"><figure><img src="foto9.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
+
+  <!-- MIS PADRES -->
+  <section id="padres" class="fam-sec rv">
     <div class="sec-fx" aria-hidden="true"></div>
-    <p class="eyebrow">Con la bendición de Dios y de</p>
-    <h2 class="script-title">Mi Familia</h2>
-    <p class="section-sub">Quienes me han acompañado en cada paso</p>
-    <div class="fam-grid">
-      <div class="fam-card rv">
-        <span class="fam-side">Mis Padres</span>
-        <span class="fam-name">Pablo Ortega García</span>
-        <div class="fam-and"><div class="fam-and-line"></div><span class="fam-and-txt">&amp;</span><div class="fam-and-line"></div></div>
-        <span class="fam-name">Marta Leticia Rodríguez Briano</span>
-      </div>
-      <div class="fam-card rv">
-        <span class="fam-side">Mis Padrinos</span>
-        <span class="fam-name">Santa Teresa Rodríguez Briano</span>
-        <div class="fam-and"><div class="fam-and-line"></div><span class="fam-and-txt">&amp;</span><div class="fam-and-line"></div></div>
-        <span class="fam-name">Rafael Guevara Rodríguez</span>
-      </div>
+    <div class="marco marco-a">
+      <h2 class="sec-title">Mis Padres</h2>
+      <div class="heart-div"><span class="hd-bar"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.9-10-9.5C.5 8.5 2 5 5.3 5c1.9 0 3.3 1.1 4.2 2.4C10.4 6.1 11.8 5 13.7 5 17 5 18.5 8.5 17 11.5 14.5 16.1 12 21 12 21z"/></svg><span class="hd-bar r"></span></div>
+      <div class="fam-names">Marta Leticia Rodríguez Briano<span class="fam-amp">y</span>Pablo Ortega García</div>
     </div>
   </section>
+
+  <div class="foto-break foto-break--r rv"><figure><img src="foto3.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
+
+  <!-- MIS PADRINOS -->
+  <section id="padrinos" class="fam-sec rv">
+    <div class="sec-fx" aria-hidden="true"></div>
+    <div class="marco marco-b">
+      <h2 class="sec-title">Mis Padrinos</h2>
+      <div class="heart-div"><span class="hd-bar"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.9-10-9.5C.5 8.5 2 5 5.3 5c1.9 0 3.3 1.1 4.2 2.4C10.4 6.1 11.8 5 13.7 5 17 5 18.5 8.5 17 11.5 14.5 16.1 12 21 12 21z"/></svg><span class="hd-bar r"></span></div>
+      <div class="fam-names">Santa Teresa Rodríguez Briano<span class="fam-amp">y</span>Rafael Guevara Rodríguez</div>
+    </div>
+  </section>
+
+  <div class="foto-break foto-break--l rv"><figure><img src="foto12.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
 
   <!-- UBICACION -->
   <section id="ubicacion">
@@ -869,81 +1035,39 @@ body{font-weight:400}
     <p class="eyebrow rv">Dónde Celebramos</p>
     <h2 class="script-title rv">Ubicación</h2>
     <p class="section-sub rv">León, Guanajuato</p>
-    <div class="loc-tabs rv" id="locTabs">
-      <button class="loc-tab active" data-panel="misa"><span>Misa</span></button>
-      <button class="loc-tab loc-tab--hint" data-panel="recepcion"><span>Recepción</span><i class="loc-dot"></i></button>
-      <button class="loc-tab loc-tab--hint" data-panel="lunes"><span>Lunes 16</span><i class="loc-dot"></i></button>
+    <div class="lugar-card rv">
+      <div class="lugar-photo"><img src="lugar-misa.jpg" alt="Parroquia del Señor de la Salud" decoding="async"></div>
+      <div class="lugar-lt">Misa</div>
+      <div class="lugar-name">Parroquia del Señor de la Salud</div>
+      <p class="lugar-addr"><strong>Jardín Allende 124</strong><br>Col. Obregón, 37320 León, Gto.</p>
+      <div class="lugar-time"><span>Misa de acción de gracias</span><strong>2:00 PM</strong></div>
+      <a class="lugar-btn" href="https://maps.app.goo.gl/PDMoNkv4uzwb6ck28" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Cómo llegar
+      </a>
     </div>
-    <p class="loc-tap-hint rv"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11"/><path d="M12 10.5V9a1.5 1.5 0 0 1 3 0v2"/><path d="M15 10.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.9-2.6L4 14.6a1.5 1.5 0 0 1 2.4-1.8L9 15"/></svg>Toca cada pestaña para ver las 3 ubicaciones</p>
-    <div class="loc-panel active" id="panel-misa">
-      <div class="loc-card rv">
-        <div class="loc-venue-name">Parroquia del Señor de la Salud</div>
-        <div class="loc-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Misa de XV Años</div>
-        <div class="loc-info-row">
-          <svg class="loc-info-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <div class="loc-info-text"><strong>Jardín Allende 124</strong>Col. Obregón<br>37320 León, Gto.</div>
-        </div>
-        <div class="loc-info-row">
-          <svg class="loc-info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <div class="loc-info-text"><strong>2:00 PM</strong> Misa de acción de gracias</div>
-        </div>
-        <div class="map-container">
-          <iframe title="Parroquia del Señor de la Salud" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
-            src="https://maps.google.com/maps?q=Parroquia+del+Se%C3%B1or+de+la+Salud+Jard%C3%ADn+Allende+124+Obregon+Le%C3%B3n+Gto&output=embed&z=16"></iframe>
-        </div>
-        <a href="https://maps.app.goo.gl/PDMoNkv4uzwb6ck28" target="_blank" rel="noopener" class="btn-directions">
-          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          Cómo llegar
-        </a>
-      </div>
+    <div class="lugar-card rv">
+      <div class="lugar-photo"><img src="lugar-salon.jpg" alt="Casa Génesis Events" decoding="async"></div>
+      <div class="lugar-lt">Recepción</div>
+      <div class="lugar-name">Casa Génesis Events</div>
+      <p class="lugar-addr"><strong>Calle San Carlos Borrovec 145</strong><br>Fracc. Jesús María, 37299 León, Gto.</p>
+      <div class="lugar-time"><span>Recepción</span><strong>4:00 PM</strong></div>
+      <a class="lugar-btn" href="https://maps.app.goo.gl/5iEMjSiSQtNXvskCA" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Cómo llegar
+      </a>
     </div>
-    <div class="loc-panel" id="panel-recepcion">
-      <div class="loc-card rv">
-        <div class="loc-venue-name">Casa Génesis Events</div>
-        <div class="loc-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Recepción</div>
-        <div class="loc-info-row">
-          <svg class="loc-info-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <div class="loc-info-text"><strong>Calle San Carlos Borrovec 145</strong>Fracc. Jesús María<br>37299 León, Gto.</div>
-        </div>
-        <div class="loc-info-row">
-          <svg class="loc-info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <div class="loc-info-text"><strong>4:00 PM</strong> Recepción de 4:00 a 4:30 PM</div>
-        </div>
-        <div class="map-container">
-          <iframe title="Casa Génesis Events" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
-            src="https://maps.google.com/maps?q=Casa+G%C3%A9nesis+events+San+Carlos+Borrovec+145+Le%C3%B3n+Gto&output=embed&z=16"></iframe>
-        </div>
-        <a href="https://maps.app.goo.gl/5iEMjSiSQtNXvskCA" target="_blank" rel="noopener" class="btn-directions">
-          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          Cómo llegar
-        </a>
-      </div>
-    </div>
-    <div class="loc-panel" id="panel-lunes">
-      <div class="loc-card rv">
-        <div class="loc-venue-name">Terraza Anahí</div>
-        <div class="loc-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Lunes 16 de Noviembre</div>
-        <div class="loc-info-row">
-          <svg class="loc-info-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <div class="loc-info-text"><strong>Calle Becerro #100</strong>Dentro de Quinta Barajas<br>C.P. 37207 León, Gto.</div>
-        </div>
-        <div class="loc-info-row">
-          <svg class="loc-info-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <div class="loc-info-text"><strong>Lunes 16</strong> Horario por confirmar</div>
-        </div>
-        <div class="loc-info-row">
-          <svg class="loc-info-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          <div class="loc-info-text"><strong>Lunes 16 de noviembre</strong>Al día siguiente seguimos celebrando y esperamos contar con tu presencia.</div>
-        </div>
-        <div class="map-container">
-          <iframe title="Terraza Anahí" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
-            src="https://maps.google.com/maps?q=Quinta+Barajas+Calle+Becerro+100+37207+Le%C3%B3n+Gto&output=embed&z=16"></iframe>
-        </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=Quinta+Barajas+Calle+Becerro+100+37207+Le%C3%B3n+Guanajuato" target="_blank" rel="noopener" class="btn-directions">
-          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          Cómo llegar
-        </a>
-      </div>
+    <div class="lugar-card rv">
+      <div class="lugar-photo"><img src="lugar-terraza.jpg" alt="Terraza Anahí" decoding="async"></div>
+      <div class="lugar-lt">Lunes 16 de Noviembre</div>
+      <div class="lugar-name">Terraza Anahí</div>
+      <p class="lugar-addr"><strong>Calle Becerro #100</strong><br>Dentro de Quinta Barajas, C.P. 37207 León, Gto.</p>
+      <div class="lugar-time"><span>Al día siguiente</span><strong>12:00 PM</strong></div>
+      <p class="lugar-nota">Al día siguiente seguimos celebrando y esperamos contar con tu presencia.</p>
+      <a class="lugar-btn" href="https://www.google.com/maps/search/?api=1&query=Quinta+Barajas+Calle+Becerro+100+37207+Le%C3%B3n+Guanajuato" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Cómo llegar
+      </a>
     </div>
     <div class="cal-section rv">
       <span class="cal-label">Agenda el día especial</span>
@@ -953,6 +1077,8 @@ body{font-weight:400}
       </a>
     </div>
   </section>
+
+  <div class="foto-break foto-break--r rv"><figure><img src="foto10.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
 
   <!-- ITINERARIO -->
   <section id="itinerario" class="sec rv">
@@ -1023,6 +1149,8 @@ body{font-weight:400}
     </div>
   </section>
 
+  <div class="foto-break foto-break--l rv"><figure><img src="foto7.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
+
   <!-- DRESS CODE -->
   <section id="dresscode" class="sec rv">
     <div class="sec-fx" aria-hidden="true"></div>
@@ -1054,93 +1182,47 @@ body{font-weight:400}
     <p class="dc-crown-names">Azul cielo · Plata</p>
   </section>
 
-  <!-- HOSPEDAJE -->
-  <section id="hospedaje" class="rv">
-    <div class="sec-fx" aria-hidden="true"></div>
-    <p class="eyebrow">Dónde Descansar</p>
-    <h2 class="script-title">Hospedaje Recomendado</h2>
-    <p class="section-sub">Opciones cercanas para que disfrutes sin preocupaciones</p>
-    <!-- PENDIENTE: hoteles del cliente (el formulario solo dijo "Hotel 1") -->
-    <p class="hotel-pending rv">Muy pronto compartiremos aquí opciones de hospedaje cercanas.</p>
-  </section>
-
-  <!-- GALERÍA -->
-  <section id="galeria">
-    <div class="sec-fx" aria-hidden="true"></div>
-    <p class="eyebrow rv">Galería</p>
-    <h2 class="script-title rv">Mis XV Años</h2>
-    <p class="section-sub rv">Un instante de mi cuento</p>
-    <div class="drop-stage" id="dropStage">
-      <div class="drop-photo" id="dropP9">
-        <img src="foto9.jpg" alt="Sara Ximena" decoding="async">
-      </div>
-      <div class="drop-photo" id="dropP3">
-        <img src="foto3.jpg" alt="Sara Ximena" loading="eager">
-      </div>
-      <div class="drop-photo" id="dropP6">
-        <img src="foto6.jpg" alt="Sara Ximena" decoding="async">
-      </div>
-      <div class="drop-photo" id="dropP7">
-        <img src="foto7.jpg" alt="Sara Ximena" decoding="async">
-      </div>
-      <div class="drop-photo" id="dropP5">
-        <img src="foto5.jpg" alt="Sara Ximena" decoding="async">
-      </div>
-      <div class="drop-photo" id="dropP1">
-        <img src="foto1.jpg" alt="Sara Ximena" loading="eager">
-      </div>
-      <div class="drop-photo" id="dropP4">
-        <img src="foto4.jpg" alt="Sara Ximena" decoding="async">
-      </div>
-      <div class="drop-photo" id="dropP13">
-        <img src="foto13.jpg" alt="Sara Ximena" decoding="async">
-      </div>
-      <div class="drop-photo" id="dropP2">
-        <img src="foto2.jpg" alt="Sara Ximena" loading="eager">
-      </div>
-      <div class="drop-photo" id="dropP8">
-        <img src="foto8.jpg" alt="Sara Ximena" decoding="async">
-      </div>
-      <div class="drop-photo" id="dropP10">
-        <img src="foto10.jpg" alt="Sara Ximena" decoding="async">
-      </div>
-      <div class="drop-photo" id="dropP11">
-        <img src="foto11.jpg" alt="Sara Ximena" decoding="async">
-      </div>
-      <div class="drop-photo" id="dropP12">
-        <img src="foto12.jpg" alt="Sara Ximena" decoding="async">
-      </div>
-    </div>
-    <div class="drop-dots" id="dropDots"></div>
-    <span class="drop-hint rv" id="dropHint">Desliza para ver más</span>
-  </section>
+  <div class="foto-break foto-break--r rv"><figure><img src="foto13.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
 
   <!-- REGALOS -->
-  <section id="regalos">
+  <section id="sgifts" class="rv" style="text-align:center">
     <div class="sec-fx" aria-hidden="true"></div>
-    <div class="gift-glow" aria-hidden="true"></div>
-    <p class="eyebrow rv">Mesa de Regalos</p>
-    <h2 class="script-title rv">Un Detalle</h2>
-    <div class="gift-card rv">
-      <span class="gift-corner gc-tl"></span><span class="gift-corner gc-tr"></span><span class="gift-corner gc-bl"></span><span class="gift-corner gc-br"></span>
-      <div class="gift-box" aria-hidden="true">
-        <svg viewBox="0 0 64 64" fill="none">
-          <defs><linearGradient id="gslv" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9AA1AA"/><stop offset=".35" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#B9C0C8"/><stop offset="1" stop-color="#E6ECF2"/></linearGradient></defs>
-          <rect x="9" y="28" width="46" height="29" rx="2.5" stroke="url(#gslv)" stroke-width="1.8" fill="rgba(130,201,255,.10)"/>
-          <rect x="6" y="20" width="52" height="9" rx="2" stroke="url(#gslv)" stroke-width="1.8" fill="rgba(130,201,255,.16)"/>
-          <path d="M32 20V57" stroke="url(#gslv)" stroke-width="2.2"/>
-          <path d="M32 20C25 9 15 10 17 16C18.5 20 26 20 32 20Z" stroke="url(#gslv)" stroke-width="1.8" fill="rgba(255,255,255,.08)"/>
-          <path d="M32 20C39 9 49 10 47 16C45.5 20 38 20 32 20Z" stroke="url(#gslv)" stroke-width="1.8" fill="rgba(255,255,255,.08)"/>
-        </svg>
-        <i class="gift-spark s1"></i><i class="gift-spark s2"></i><i class="gift-spark s3"></i>
-      </div>
-      <p class="gift-msg">Tu presencia es mi regalo más preciado.<br>Si deseas tener un detalle conmigo,<br>con infinita gratitud lo recibiré.</p>
-      <div class="gift-sep"><span></span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C12.9 7 17 11.1 24 12C17 12.9 12.9 17 12 24C11.1 17 7 12.9 0 12C7 11.1 11.1 7 12 0Z"/></svg><span></span></div>
-      <!-- PENDIENTE: datos de mesa de regalos del cliente -->
-      <p class="gift-soon">Muy pronto compartiré aquí los detalles de mi mesa de regalos</p>
+    <div class="env-rain" id="envRain" aria-hidden="true"></div>
+    <div class="env-stage">
+      <p class="eyebrow">Con Cariño</p>
+      <h2 class="sec-title">Mesa de Regalos</h2>
+      <div class="heart-div"><span class="hd-bar"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.9-10-9.5C.5 8.5 2 5 5.3 5c1.9 0 3.3 1.1 4.2 2.4C10.4 6.1 11.8 5 13.7 5 17 5 18.5 8.5 17 11.5 14.5 16.1 12 21 12 21z"/></svg><span class="hd-bar r"></span></div>
+      <button class="env-interactive" id="envGift" type="button" aria-label="Sobre — toca para abrir" aria-expanded="false">
+        <div class="env-body" id="envGiftBody">
+          <svg class="env-svg" viewBox="0 0 260 200" preserveAspectRatio="none" aria-hidden="true">
+            <defs><linearGradient id="envPaper" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#F2F8FF"/><stop offset="100%" stop-color="#ffffff"/></linearGradient></defs>
+            <rect x="18" y="52" width="224" height="132" rx="8" fill="url(#envPaper)" stroke="rgba(185,143,60,.6)" stroke-width="1.4"/>
+            <path d="M18 184 L130 110 L242 184" stroke="rgba(185,143,60,.4)" stroke-width="1" fill="none"/>
+          </svg>
+          <div class="env-flap-wrap" aria-hidden="true">
+            <svg viewBox="0 0 224 86" preserveAspectRatio="none" style="width:100%;height:100%;display:block">
+              <defs><linearGradient id="envFlap" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#E8F2FE"/><stop offset="100%" stop-color="#ffffff"/></linearGradient></defs>
+              <path d="M0 0 L112 86 L224 0 Z" fill="url(#envFlap)" stroke="rgba(185,143,60,.6)" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <svg class="env-seal" viewBox="0 0 60 60" aria-hidden="true">
+            <circle cx="30" cy="30" r="28" fill="#9CC8EE"/>
+            <circle cx="30" cy="30" r="28" fill="none" stroke="#6E9CC6" stroke-width="2" opacity=".6"/>
+            <circle cx="30" cy="30" r="21.5" fill="none" stroke="#C9A04E" stroke-width="1.3"/>
+            <text x="30" y="38" text-anchor="middle" font-family="'Great Vibes', cursive" font-size="24" fill="#FFFFFF">SX</text>
+          </svg>
+        </div>
+        <div class="env-open-content" aria-live="polite">
+          <svg class="env-mailbox-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="1.5"/><path d="M3 12h18"/><path d="M12 8v13"/><path d="M12 8C10 4 6.5 4.5 7 6.5 7.4 8 10 8 12 8z"/><path d="M12 8c2-4 5.5-3.5 5-1.5C16.6 8 14 8 12 8z"/></svg>
+          <p class="env-title">Tu presencia es mi mayor regalo</p>
+          <p class="env-desc">pero si deseas tener un detalle conmigo, puede ser un regalo físico o en efectivo mediante lluvia de sobres.</p>
+        </div>
+      </button>
+      <p class="env-tap-hint" id="envGiftHint">Toca para abrir</p>
     </div>
   </section>
 
+  <div class="foto-break foto-break--l rv"><figure><img src="foto8.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
 
   <!-- ALBUM -->
   <section id="album" class="rv">
@@ -1172,6 +1254,8 @@ body{font-weight:400}
       })();
     </script>
   </section>
+
+  <div class="foto-break foto-break--r rv"><figure><img src="foto6.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
 
   <!-- RSVP · Panel de invitados (X pases) -->
   <section id="rsvp">
@@ -1323,6 +1407,8 @@ body{font-weight:400}
   })();
   </script>
 
+  <div class="foto-break foto-break--l rv"><figure><img src="foto11.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
+
   <!-- CIERRE -->
   <section class="closing">
     <div class="sec-fx" aria-hidden="true"></div>
@@ -1338,7 +1424,7 @@ body{font-weight:400}
     <div class="sec-fx" aria-hidden="true"></div>
     <div class="ft-tiara rv" aria-hidden="true">
       <svg viewBox="0 0 160 70" fill="none">
-        <defs><linearGradient id="fslv" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8E959E"/><stop offset=".3" stop-color="#F4F6F8"/><stop offset=".5" stop-color="#B9C0C8"/><stop offset=".7" stop-color="#FFFFFF"/><stop offset="1" stop-color="#9AA1AA"/></linearGradient></defs>
+        <defs><linearGradient id="fslv" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8A6A28"/><stop offset=".3" stop-color="#E8D5A3"/><stop offset=".5" stop-color="#B98F3C"/><stop offset=".7" stop-color="#F3E3B8"/><stop offset="1" stop-color="#8A6A28"/></linearGradient></defs>
         <path d="M14 58 Q80 40 146 58" stroke="url(#fslv)" stroke-width="1.6"/>
         <path d="M22 54 L34 30 L48 47 L62 20 L80 44 L98 20 L112 47 L126 30 L138 54" stroke="url(#fslv)" stroke-width="1.4" stroke-linejoin="round"/>
         <circle cx="80" cy="12" r="5" stroke="url(#fslv)" stroke-width="1.4"/><circle cx="62" cy="16" r="2.6" fill="url(#fslv)"/><circle cx="98" cy="16" r="2.6" fill="url(#fslv)"/>
@@ -1488,6 +1574,7 @@ function initAll(){
 
   /* ── GALERÍA: FOTOS QUE CAEN ── */
   (function(){
+    if(!document.getElementById('dropStage'))return;
     const finalRotations=[-3,2,-2,3,-2,2];
     const photos=[...document.querySelectorAll('#dropStage .drop-photo')].map((el,i)=>({el,rot:finalRotations[i%6]}));
     const stage=document.getElementById('dropStage'),dots=document.getElementById('dropDots');
@@ -1586,6 +1673,91 @@ initEnvelope();
   ['pointerdown','touchend','click','keydown'].forEach(function(ev){
     document.addEventListener(ev,onGesture,{capture:true,passive:true});
   });
+})();
+</script>
+
+<script>
+/* ROUND4 · marcos florales y lluvia de sobres (de xv-zoe) */
+function initMarcos(){
+  var ms=[].slice.call(document.querySelectorAll('.marco'));
+  if(!ms.length) return;
+  function mira(){var h=window.innerHeight;ms.forEach(function(m){var r=m.getBoundingClientRect();if(r.top<h*.92&&r.bottom>0)m.classList.add('is-in');});}
+  window.addEventListener('scroll',mira,{passive:true});window.addEventListener('resize',mira);mira();
+}
+function initEnvRain(){
+  var sec=document.getElementById('sgifts'),rain=document.getElementById('envRain'),
+      btn=document.getElementById('envGift'),body=document.getElementById('envGiftBody'),
+      hint=document.getElementById('envGiftHint');
+  if(!sec||!rain||!btn) return;
+  var raining=true,landed=false,spawnCall=null,alive=0;
+  var MAX_ALIVE=18;
+
+  function makeEnvelope(){
+    if(alive>=MAX_ALIVE) return;
+    alive++;
+    var el=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    el.setAttribute('viewBox','0 0 34 24');
+    el.setAttribute('class','env-rain-item');
+    var w=16+Math.random()*16;
+    el.style.width=w+'px';el.style.height=(w*24/34)+'px';
+    el.style.left=(Math.random()*100)+'%';
+    el.innerHTML='<rect x="1" y="1" width="32" height="22" rx="2.5" fill="#FFFFFF" stroke="#7FB8E6" stroke-width="1.2"/>'+
+                 '<path d="M1 1 L17 13 L33 1" fill="none" stroke="#7FB8E6" stroke-width="1.2" stroke-linejoin="round"/>';
+    rain.appendChild(el);
+    var H=sec.offsetHeight+80,dur=5+Math.random()*4;
+    function kill(){if(el.parentNode){el.remove();alive--;}}
+    gsap.timeline({onComplete:kill})
+      .fromTo(el,{y:-46,x:0,rotation:(Math.random()-.5)*50,opacity:0},
+                 {y:H,x:(Math.random()-.5)*70,rotation:(Math.random()-.5)*160,
+                  duration:dur,ease:'none'},0)
+      .fromTo(el,{opacity:0},{opacity:.75,duration:dur*.18,ease:'power1.out'},0)
+      .to(el,{opacity:0,duration:dur*.25,ease:'power1.in'},dur*.75);
+  }
+  /* Spawn por el ticker de GSAP (no setInterval): se pausa con la pestaña. */
+  function scheduleSpawn(){
+    spawnCall=gsap.delayedCall(.52,function(){
+      if(!raining) return;
+      makeEnvelope();
+      scheduleSpawn();
+    });
+  }
+  function stopRain(){
+    raining=false;
+    if(spawnCall) spawnCall.kill();
+    gsap.to(rain,{opacity:0,duration:1.1,ease:'power2.out',
+      onComplete:function(){rain.innerHTML='';alive=0;}});
+  }
+  function land(){
+    if(landed) return; landed=true;
+    stopRain();
+    gsap.fromTo(btn,
+      {opacity:0,y:-150,rotation:-12,scale:.82},
+      {opacity:1,y:0,rotation:0,scale:1,duration:1.15,ease:'back.out(1.5)',
+       onComplete:function(){
+         if(body)body.classList.add('landed');
+         if(hint)hint.classList.add('show');
+       }});
+  }
+  for(var i=0;i<7;i++) gsap.delayedCall(i*.26,makeEnvelope);
+  scheduleSpawn();
+  /* 'center 55%' y no 'center center': el reveal .rv desplaza 28px las
+     secciones aún no visibles y el umbral exacto queda fuera de alcance. */
+  ScrollTrigger.create({trigger:sec,start:'center 55%',once:true,onEnter:land,onEnterBack:land});
+
+  btn.addEventListener('click',function(e){
+    if(e)e.preventDefault();
+    if(!landed) return;
+    var open=btn.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open?'true':'false');
+    if(open&&body)body.classList.remove('landed');
+    ScrollTrigger.refresh();
+  });
+}
+(function(){
+  var started=false;
+  function go(){if(started)return;started=true;initMarcos();initEnvRain();}
+  /* la invitación se muestra al terminar el sobre; arrancar cuando .wrap ya es visible */
+  var t=setInterval(function(){var w=document.querySelector('.wrap');if(w&&getComputedStyle(w).visibility==='visible'){clearInterval(t);go();}},300);
 })();
 </script>
 </body>
