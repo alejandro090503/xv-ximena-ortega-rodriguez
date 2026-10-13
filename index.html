@@ -889,6 +889,22 @@ body{font-weight:400}
 .foto-par img{width:100%;aspect-ratio:2/3;object-fit:cover;object-position:center 25%;display:block;border-radius:2px}
 .foto-par::before{content:'';position:absolute;left:50%;top:50%;width:90%;height:70%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(130,201,255,.25),transparent 70%);z-index:-1;pointer-events:none}
 
+/* ROUND6 */
+/* ROUND6 · cuenta regresiva centrada + polaroid única con fundido */
+#countdown{align-items:center}
+#countdown .cd-elegant{width:100%;max-width:360px;padding:28px 10px 24px;box-sizing:border-box}
+#countdown .cd-row{justify-content:space-between;gap:0}
+#countdown .cd-unit{flex:1 1 0;min-width:0;padding:0}
+#countdown .cd-value{font-size:clamp(30px,9.4vw,46px);letter-spacing:0;text-align:center;font-variant-numeric:tabular-nums}
+#countdown .cd-lbl{letter-spacing:2px;font-size:12px}
+#countdown .cd-divider{flex:0 0 auto;padding:0 2px 24px}
+.foto-par{padding:34px 0 40px}
+.foto-par .fp-fade{position:relative;width:min(72%,300px);max-width:none;rotate:-2.5deg;margin:0}
+.foto-par:nth-of-type(even) .fp-fade{rotate:2.5deg}
+.fp-fade img{width:100%;aspect-ratio:2/3;object-fit:cover;object-position:center 25%;display:block;border-radius:2px}
+.fp-fade .fp-2{position:absolute;left:7px;top:7px;width:calc(100% - 14px);opacity:0;animation:fpFade 10s ease-in-out infinite}
+@keyframes fpFade{0%,38%{opacity:0}50%,88%{opacity:1}100%{opacity:0}}
+
 </style>
 </head>
 <body>
@@ -988,7 +1004,6 @@ body{font-weight:400}
   <section id="countdown" class="sec rv">
     <div class="sec-fx" aria-hidden="true"></div>
     <div class="cd-photo" aria-hidden="true"></div>
-    <p class="eyebrow">Faltan</p>
     <h2 class="script-title">Cuenta Regresiva</h2>
     <p class="section-sub">Para que el reloj marque la medianoche más mágica</p>
     <div class="cd-elegant rv">
@@ -1094,8 +1109,7 @@ body{font-weight:400}
   </section>
 
   <div class="foto-par rv">
-    <figure class="fp-a"><img src="foto3.jpg" alt="Sara Ximena" decoding="async"></figure>
-    <figure class="fp-b"><img src="foto10.jpg" alt="Sara Ximena" decoding="async"></figure>
+    <figure class="fp-fade"><img src="foto3.jpg" alt="Sara Ximena" decoding="async"><img class="fp-2" src="foto10.jpg" alt="Sara Ximena" decoding="async"></figure>
   </div>
 
   <!-- ITINERARIO -->
@@ -1205,8 +1219,7 @@ body{font-weight:400}
   </section>
 
   <div class="foto-par rv">
-    <figure class="fp-a"><img src="foto13.jpg" alt="Sara Ximena" decoding="async"></figure>
-    <figure class="fp-b"><img src="foto2.jpg" alt="Sara Ximena" decoding="async"></figure>
+    <figure class="fp-fade"><img src="foto13.jpg" alt="Sara Ximena" decoding="async"><img class="fp-2" src="foto2.jpg" alt="Sara Ximena" decoding="async"></figure>
   </div>
 
   <!-- REGALOS -->
@@ -1248,8 +1261,7 @@ body{font-weight:400}
   </section>
 
   <div class="foto-par rv">
-    <figure class="fp-a"><img src="foto8.jpg" alt="Sara Ximena" decoding="async"></figure>
-    <figure class="fp-b"><img src="foto11.jpg" alt="Sara Ximena" decoding="async"></figure>
+    <figure class="fp-fade"><img src="foto8.jpg" alt="Sara Ximena" decoding="async"><img class="fp-2" src="foto11.jpg" alt="Sara Ximena" decoding="async"></figure>
   </div>
 
   <!-- ALBUM -->
