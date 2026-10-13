@@ -1516,7 +1516,7 @@ body{font-weight:400}
     <i class="zap-sp z1"></i><i class="zap-sp z2"></i><i class="zap-sp z3"></i>
   </span>
 </button>
-<audio id="bgAudio" src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/audio/xv-ximena-ortega-rodriguez/cancion.mp3" preload="none" loop></audio>
+<audio id="bgAudio" src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/audio/xv-ximena-ortega-rodriguez/cancion.mp3?v=2" preload="none" loop></audio>
 <div id="env-flash"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
@@ -1703,7 +1703,7 @@ initEnvelope();
    - Si el archivo de la cancion falla (404, host caido, HTML en vez de mp3) se usa una de respaldo. */
 (function(){
   if(window.__elyAudio2) return; window.__elyAudio2=1;
-  var FALLBACK='https://boda-isaac-y-claudia.vercel.app/cancion.mp3';
+  var FALLBACK='https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/audio/xv-ximena-ortega-rodriguez/cancion.mp3?r=2'; /* respaldo = la MISMA canción (sin caché), nunca otra */
   var forced=false, gestured=false;
   function A(){ return document.querySelector('audio'); }
   function toFallback(a){
