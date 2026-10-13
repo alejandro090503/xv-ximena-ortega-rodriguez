@@ -872,6 +872,23 @@ body{font-weight:400}
 .env-mailbox-icon{color:var(--gold)!important}
 .env-tap-hint{color:var(--accent)!important;font-size:13px}
 
+/* ROUND5 */
+/* ROUND5 · fotos a pantalla completa con bordes difuminados + pares de polaroids */
+.foto-sec{position:relative;min-height:82vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding:60px 28px 120px;overflow:hidden}
+.foto-sec-bg{position:absolute;inset:0;background-size:cover;background-repeat:no-repeat;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.35) 60px,rgba(0,0,0,.85) 140px,#000 180px,#000 calc(100% - 180px),rgba(0,0,0,.85) calc(100% - 140px),rgba(0,0,0,.35) calc(100% - 60px),transparent 100%);
+          mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.35) 60px,rgba(0,0,0,.85) 140px,#000 180px,#000 calc(100% - 180px),rgba(0,0,0,.85) calc(100% - 140px),rgba(0,0,0,.35) calc(100% - 60px),transparent 100%);
+  animation:fsZoom 18s ease-in-out infinite alternate}
+@keyframes fsZoom{from{scale:1}to{scale:1.06}}
+.foto-sec-veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(15,47,85,0) 30%,rgba(15,47,85,.42) 68%,rgba(15,47,85,.3) 86%,rgba(15,47,85,0) 100%)}
+.fs-frase{position:relative;z-index:2;font-family:'Great Vibes',cursive;font-size:clamp(36px,10vw,48px);line-height:1.2;color:#fff;text-shadow:0 3px 18px rgba(0,0,0,.45);max-width:340px}
+.foto-par{position:relative;display:flex;justify-content:center;align-items:flex-start;gap:4px;padding:34px 14px 40px}
+.foto-par figure{margin:0;width:46%;max-width:200px;background:#fff;padding:7px 7px 26px;border-radius:3px;box-shadow:0 16px 34px rgba(42,69,96,.17),0 2px 6px rgba(42,69,96,.08);animation:levitate 6s ease-in-out infinite}
+.foto-par .fp-a{rotate:-4deg}
+.foto-par .fp-b{rotate:3.5deg;margin-top:34px;animation-delay:-3s}
+.foto-par img{width:100%;aspect-ratio:2/3;object-fit:cover;object-position:center 25%;display:block;border-radius:2px}
+.foto-par::before{content:'';position:absolute;left:50%;top:50%;width:90%;height:70%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(130,201,255,.25),transparent 70%);z-index:-1;pointer-events:none}
+
 </style>
 </head>
 <body>
@@ -913,6 +930,57 @@ body{font-weight:400}
     <div class="scroll-hint" id="scrollHint">
       <span class="scroll-hint-txt">Desliza</span>
       <span class="scroll-hint-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section id="quote">
+    <div class="sec-fx" aria-hidden="true"></div>
+    <svg class="quote-deco-fan quote-deco-fan--l" viewBox="0 0 120 160" width="120" height="160" fill="none">
+      <path d="M60 150L60 80M60 150L30 90M60 150L90 90M60 150L10 110M60 150L110 110M60 150L0 130M60 150L120 130" stroke="#9AA4B2" stroke-width="1.2"/>
+      <path d="M0 80Q60 50 120 80" stroke="#9AA4B2" stroke-width="1" fill="none"/>
+      <path d="M8 65Q60 28 112 65" stroke="#9AA4B2" stroke-width=".7" fill="none"/>
+      <path d="M18 52Q60 10 102 52" stroke="#9AA4B2" stroke-width=".5" fill="none"/>
+    </svg>
+    <svg class="quote-deco-fan quote-deco-fan--r" viewBox="0 0 120 160" width="120" height="160" fill="none">
+      <path d="M60 150L60 80M60 150L30 90M60 150L90 90M60 150L10 110M60 150L110 110M60 150L0 130M60 150L120 130" stroke="#9AA4B2" stroke-width="1.2"/>
+      <path d="M0 80Q60 50 120 80" stroke="#9AA4B2" stroke-width="1" fill="none"/>
+      <path d="M8 65Q60 28 112 65" stroke="#9AA4B2" stroke-width=".7" fill="none"/>
+    </svg>
+    <span class="quote-mark rv">"</span>
+    <p class="quote-txt rv">
+      Hay noches que parecen escritas en un cuento.<br>
+      Quince años después, con un vestido soñado y el corazón lleno de gratitud,
+      quiero vivir la mía rodeada de las personas que más quiero.<br>
+      Tu presencia será la magia que haga inolvidable esta noche.
+    </p>
+    <span class="quote-sig rv">Sara Ximena</span>
+    <div class="quote-bar rv"></div>
+  </section>
+
+  <section class="foto-sec rv">
+    <div class="foto-sec-bg" style="background-image:url('foto9.jpg');background-position:center 25%"></div>
+    <div class="foto-sec-veil"></div>
+    <p class="fs-frase">Quince años de sueños,<br>una noche de magia</p>
+  </section>
+
+  <!-- MIS PADRES -->
+  <section id="padres" class="fam-sec rv">
+    <div class="sec-fx" aria-hidden="true"></div>
+    <div class="marco marco-a">
+      <h2 class="sec-title">Mis Padres</h2>
+      <div class="heart-div"><span class="hd-bar"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.9-10-9.5C.5 8.5 2 5 5.3 5c1.9 0 3.3 1.1 4.2 2.4C10.4 6.1 11.8 5 13.7 5 17 5 18.5 8.5 17 11.5 14.5 16.1 12 21 12 21z"/></svg><span class="hd-bar r"></span></div>
+      <div class="fam-names">Marta Leticia Rodríguez Briano<span class="fam-amp">y</span>Pablo Ortega García</div>
+    </div>
+  </section>
+
+  <!-- MIS PADRINOS -->
+  <section id="padrinos" class="fam-sec rv">
+    <div class="sec-fx" aria-hidden="true"></div>
+    <div class="marco marco-b">
+      <h2 class="sec-title">Mis Padrinos</h2>
+      <div class="heart-div"><span class="hd-bar"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.9-10-9.5C.5 8.5 2 5 5.3 5c1.9 0 3.3 1.1 4.2 2.4C10.4 6.1 11.8 5 13.7 5 17 5 18.5 8.5 17 11.5 14.5 16.1 12 21 12 21z"/></svg><span class="hd-bar r"></span></div>
+      <div class="fam-names">Santa Teresa Rodríguez Briano<span class="fam-amp">y</span>Rafael Guevara Rodríguez</div>
     </div>
   </section>
 
@@ -976,59 +1044,6 @@ body{font-weight:400}
     </div>
   </section>
 
-  <div class="foto-break foto-break--r rv"><figure><img src="foto2.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
-
-  <!-- QUOTE -->
-  <section id="quote">
-    <div class="sec-fx" aria-hidden="true"></div>
-    <svg class="quote-deco-fan quote-deco-fan--l" viewBox="0 0 120 160" width="120" height="160" fill="none">
-      <path d="M60 150L60 80M60 150L30 90M60 150L90 90M60 150L10 110M60 150L110 110M60 150L0 130M60 150L120 130" stroke="#9AA4B2" stroke-width="1.2"/>
-      <path d="M0 80Q60 50 120 80" stroke="#9AA4B2" stroke-width="1" fill="none"/>
-      <path d="M8 65Q60 28 112 65" stroke="#9AA4B2" stroke-width=".7" fill="none"/>
-      <path d="M18 52Q60 10 102 52" stroke="#9AA4B2" stroke-width=".5" fill="none"/>
-    </svg>
-    <svg class="quote-deco-fan quote-deco-fan--r" viewBox="0 0 120 160" width="120" height="160" fill="none">
-      <path d="M60 150L60 80M60 150L30 90M60 150L90 90M60 150L10 110M60 150L110 110M60 150L0 130M60 150L120 130" stroke="#9AA4B2" stroke-width="1.2"/>
-      <path d="M0 80Q60 50 120 80" stroke="#9AA4B2" stroke-width="1" fill="none"/>
-      <path d="M8 65Q60 28 112 65" stroke="#9AA4B2" stroke-width=".7" fill="none"/>
-    </svg>
-    <span class="quote-mark rv">"</span>
-    <p class="quote-txt rv">
-      Hay noches que parecen escritas en un cuento.<br>
-      Quince años después, con un vestido soñado y el corazón lleno de gratitud,
-      quiero vivir la mía rodeada de las personas que más quiero.<br>
-      Tu presencia será la magia que haga inolvidable esta noche.
-    </p>
-    <span class="quote-sig rv">Sara Ximena</span>
-    <div class="quote-bar rv"></div>
-  </section>
-
-  <div class="foto-break foto-break--l rv"><figure><img src="foto9.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
-
-  <!-- MIS PADRES -->
-  <section id="padres" class="fam-sec rv">
-    <div class="sec-fx" aria-hidden="true"></div>
-    <div class="marco marco-a">
-      <h2 class="sec-title">Mis Padres</h2>
-      <div class="heart-div"><span class="hd-bar"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.9-10-9.5C.5 8.5 2 5 5.3 5c1.9 0 3.3 1.1 4.2 2.4C10.4 6.1 11.8 5 13.7 5 17 5 18.5 8.5 17 11.5 14.5 16.1 12 21 12 21z"/></svg><span class="hd-bar r"></span></div>
-      <div class="fam-names">Marta Leticia Rodríguez Briano<span class="fam-amp">y</span>Pablo Ortega García</div>
-    </div>
-  </section>
-
-  <div class="foto-break foto-break--r rv"><figure><img src="foto3.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
-
-  <!-- MIS PADRINOS -->
-  <section id="padrinos" class="fam-sec rv">
-    <div class="sec-fx" aria-hidden="true"></div>
-    <div class="marco marco-b">
-      <h2 class="sec-title">Mis Padrinos</h2>
-      <div class="heart-div"><span class="hd-bar"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.9-10-9.5C.5 8.5 2 5 5.3 5c1.9 0 3.3 1.1 4.2 2.4C10.4 6.1 11.8 5 13.7 5 17 5 18.5 8.5 17 11.5 14.5 16.1 12 21 12 21z"/></svg><span class="hd-bar r"></span></div>
-      <div class="fam-names">Santa Teresa Rodríguez Briano<span class="fam-amp">y</span>Rafael Guevara Rodríguez</div>
-    </div>
-  </section>
-
-  <div class="foto-break foto-break--l rv"><figure><img src="foto12.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
-
   <!-- UBICACION -->
   <section id="ubicacion">
     <div class="sec-fx" aria-hidden="true"></div>
@@ -1078,7 +1093,10 @@ body{font-weight:400}
     </div>
   </section>
 
-  <div class="foto-break foto-break--r rv"><figure><img src="foto10.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
+  <div class="foto-par rv">
+    <figure class="fp-a"><img src="foto3.jpg" alt="Sara Ximena" decoding="async"></figure>
+    <figure class="fp-b"><img src="foto10.jpg" alt="Sara Ximena" decoding="async"></figure>
+  </div>
 
   <!-- ITINERARIO -->
   <section id="itinerario" class="sec rv">
@@ -1149,7 +1167,11 @@ body{font-weight:400}
     </div>
   </section>
 
-  <div class="foto-break foto-break--l rv"><figure><img src="foto7.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
+  <section class="foto-sec rv">
+    <div class="foto-sec-bg" style="background-image:url('foto12.jpg');background-position:center 30%"></div>
+    <div class="foto-sec-veil"></div>
+    <p class="fs-frase">Cada cuento comienza<br>con un sueño</p>
+  </section>
 
   <!-- DRESS CODE -->
   <section id="dresscode" class="sec rv">
@@ -1182,7 +1204,10 @@ body{font-weight:400}
     <p class="dc-crown-names">Azul cielo · Plata</p>
   </section>
 
-  <div class="foto-break foto-break--r rv"><figure><img src="foto13.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
+  <div class="foto-par rv">
+    <figure class="fp-a"><img src="foto13.jpg" alt="Sara Ximena" decoding="async"></figure>
+    <figure class="fp-b"><img src="foto2.jpg" alt="Sara Ximena" decoding="async"></figure>
+  </div>
 
   <!-- REGALOS -->
   <section id="sgifts" class="rv" style="text-align:center">
@@ -1222,7 +1247,10 @@ body{font-weight:400}
     </div>
   </section>
 
-  <div class="foto-break foto-break--l rv"><figure><img src="foto8.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
+  <div class="foto-par rv">
+    <figure class="fp-a"><img src="foto8.jpg" alt="Sara Ximena" decoding="async"></figure>
+    <figure class="fp-b"><img src="foto11.jpg" alt="Sara Ximena" decoding="async"></figure>
+  </div>
 
   <!-- ALBUM -->
   <section id="album" class="rv">
@@ -1255,7 +1283,11 @@ body{font-weight:400}
     </script>
   </section>
 
-  <div class="foto-break foto-break--r rv"><figure><img src="foto6.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
+  <section class="foto-sec rv">
+    <div class="foto-sec-bg" style="background-image:url('foto6.jpg');background-position:center 20%"></div>
+    <div class="foto-sec-veil"></div>
+    <p class="fs-frase">Y esa noche,<br>el reloj se detuvo para mí</p>
+  </section>
 
   <!-- RSVP · Panel de invitados (X pases) -->
   <section id="rsvp">
@@ -1406,8 +1438,6 @@ body{font-weight:400}
     });
   })();
   </script>
-
-  <div class="foto-break foto-break--l rv"><figure><img src="foto11.jpg" alt="Sara Ximena" decoding="async"></figure><i class="fb-sp"></i></div>
 
   <!-- CIERRE -->
   <section class="closing">
