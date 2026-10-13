@@ -912,6 +912,19 @@ body{font-weight:400}
 @keyframes fsBreathe{0%{scale:1;translate:0 0}100%{scale:1.14;translate:0 -2%}}
 @media (prefers-reduced-motion:reduce){.foto-sec-bg,.closing-bg{animation:none!important}}
 
+/* ROUND7 */
+/* ROUND7 · marco igual en padres y padrinos sin cortar nombres; foto completa; polaroids grandes */
+.fam-sec .marco{padding:104px 56px 128px}
+@media (max-width:380px){.fam-sec .marco{padding:92px 46px 118px}.fam-names{font-size:20px}}
+.foto-completa{position:relative;margin:0 auto;padding:10px 0;overflow:hidden}
+.foto-completa img{width:100%;height:auto;display:block;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 18%,#000 82%,transparent 100%),linear-gradient(to right,transparent 0,#000 7%,#000 93%,transparent 100%);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to bottom,transparent 0,#000 18%,#000 82%,transparent 100%),linear-gradient(to right,transparent 0,#000 7%,#000 93%,transparent 100%);mask-composite:intersect;
+  animation:fcBreathe 16s cubic-bezier(.45,0,.55,1) infinite alternate}
+@keyframes fcBreathe{0%{scale:1}100%{scale:1.06}}
+.foto-par .fp-fade{width:min(90%,400px)}
+.foto-par{padding:30px 0 36px}
+
 </style>
 </head>
 <body>
@@ -1000,7 +1013,7 @@ body{font-weight:400}
   <!-- MIS PADRINOS -->
   <section id="padrinos" class="fam-sec rv">
     <div class="sec-fx" aria-hidden="true"></div>
-    <div class="marco marco-b">
+    <div class="marco marco-a">
       <h2 class="sec-title">Mis Padrinos</h2>
       <div class="heart-div"><span class="hd-bar"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.9-10-9.5C.5 8.5 2 5 5.3 5c1.9 0 3.3 1.1 4.2 2.4C10.4 6.1 11.8 5 13.7 5 17 5 18.5 8.5 17 11.5 14.5 16.1 12 21 12 21z"/></svg><span class="hd-bar r"></span></div>
       <div class="fam-names">Santa Teresa Rodríguez Briano<span class="fam-amp">y</span>Rafael Guevara Rodríguez</div>
@@ -1064,6 +1077,10 @@ body{font-weight:400}
         <div class="cd-orn-d2"></div>
       </div>
     </div>
+  </section>
+
+  <section class="foto-completa rv">
+    <img src="foto1.jpg" alt="Sara Ximena" decoding="async">
   </section>
 
   <!-- UBICACION -->
