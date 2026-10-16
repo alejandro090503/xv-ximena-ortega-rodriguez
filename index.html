@@ -933,6 +933,13 @@ body{font-weight:400}
 .foto-par .fp-fade{width:min(90%,400px)}
 .foto-par{padding:30px 0 36px}
 
+/* ROUND8 */
+/* ROUND8 · polaroid de 4 fotos con fundido (5 s cada una) */
+.fp-4 .fp-x{position:absolute;left:7px;top:7px;width:calc(100% - 14px);opacity:0;animation:fp4 20s ease-in-out infinite}
+.fp-4 .fp-x:nth-of-type(2){animation-delay:5s}.fp-4 .fp-x:nth-of-type(3){animation-delay:10s}.fp-4 .fp-x:nth-of-type(4){animation-delay:15s}
+@keyframes fp4{0%{opacity:0}6%,25%{opacity:1}31%,100%{opacity:0}}
+.foto-completa{margin-top:10px;margin-bottom:10px}
+
 </style>
 </head>
 <body>
@@ -1085,10 +1092,6 @@ body{font-weight:400}
         <div class="cd-orn-d2"></div>
       </div>
     </div>
-  </section>
-
-  <section class="foto-completa rv">
-    <img src="foto1.jpg" alt="Sara Ximena" decoding="async">
   </section>
 
   <!-- UBICACION -->
@@ -1251,7 +1254,7 @@ body{font-weight:400}
   </section>
 
   <div class="foto-par rv">
-    <figure class="fp-fade"><img src="foto13.jpg" alt="Sara Ximena" decoding="async"><img class="fp-2" src="foto2.jpg" alt="Sara Ximena" decoding="async"></figure>
+    <figure class="fp-fade fp-4"><img src="foto13.jpg" alt="Sara Ximena" decoding="async"><img class="fp-x" src="foto2.jpg" alt="Sara Ximena" decoding="async"><img class="fp-x" src="foto8.jpg" alt="Sara Ximena" decoding="async"><img class="fp-x" src="foto11.jpg" alt="Sara Ximena" decoding="async"></figure>
   </div>
 
   <!-- REGALOS -->
@@ -1292,9 +1295,9 @@ body{font-weight:400}
     </div>
   </section>
 
-  <div class="foto-par rv">
-    <figure class="fp-fade"><img src="foto8.jpg" alt="Sara Ximena" decoding="async"><img class="fp-2" src="foto11.jpg" alt="Sara Ximena" decoding="async"></figure>
-  </div>
+  <section class="foto-completa rv">
+    <img src="foto1.jpg" alt="Sara Ximena" decoding="async">
+  </section>
 
   <!-- ALBUM -->
   <section id="album" class="rv">
